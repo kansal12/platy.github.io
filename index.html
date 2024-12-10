@@ -71,14 +71,23 @@
     <footer>
       <p>Loved by developers</p>
     </footer>
+    <script src="js/script.js" defer></script>
     <script>
       fetch("header.html")
         .then((response) => response.text())
         .then((html) => {
           document.getElementById("header").innerHTML = html;
+          // Initialize header.js functionality
+          const hamburgerMenu = document.querySelector(".hamburger-menu");
+          const mobileMenu = document.querySelector(".mobile-menu");
+
+          if (hamburgerMenu && mobileMenu) {
+            hamburgerMenu.addEventListener("click", () => {
+              mobileMenu.classList.toggle("active"); // Add or remove the "active" class
+            });
+          }
         });
     </script>
-    <script src="js/header.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/header.js" defer></script>
   </body>
 </html>
