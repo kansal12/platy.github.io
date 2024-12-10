@@ -301,3 +301,25 @@ nav ul li a {
 .play-sign {
   display: block;
 }
+
+@media (max-width: 640px) {
+  .logo img {
+    height: 16px;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .subtitle {
+    font-size: 11px;
+  }
+  .feature-card {
+    margin: 0;
+    margin-bottom: 40px;
+  }
+  .feature-card h3 {
+    font-size: 18px;
+  }
+  .feature-card p {
+    font-size: 12px;
+  }
+}
