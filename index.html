@@ -4,23 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The AI Code Editor</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/header.css" />
   </head>
   <body>
-    <nav class="navbar">
-      <div class="logo">
-        <img src="assets/platy-studio-logo.png" alt="Platy.Studio" />
-      </div>
-      <div class="nav-link">
-        <a href="#">BLOG</a>
-        <a href="#">CAREERS</a>
-      </div>
-
-      <div>
-        <button class="button contact-us-button">Contact Us</button>
-        <!-- <button class="button blog-button">Blog</button></li> -->
-      </div>
-    </nav>
+    <!-- Include header.html -->
+    <!-- <include src="header.html"></include> -->
+    <nav id="header"></nav>
 
     <header class="hero">
       <h1>The AI Video Production Studio</h1>
@@ -81,6 +71,14 @@
     <footer>
       <p>Loved by developers</p>
     </footer>
-    <script src="script.js"></script>
+    <script>
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById("header").innerHTML = html;
+        });
+    </script>
+    <script src="js/header.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
