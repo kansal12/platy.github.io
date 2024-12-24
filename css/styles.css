@@ -1,7 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
-  --gradient-primary: linear-gradient(45deg, #ff00ff, #00ffff);
+  --gradient-primary: linear-gradient(
+    105deg,
+    rgb(39, 84, 100),
+    rgb(42, 39, 100)
+  );
   --dark-bg: #2b2a3d;
   --card-bg: rgba(255, 255, 255, 0.1);
 }
@@ -114,7 +118,7 @@ video {
 
 .feature-image {
   margin-top: 1rem;
-  height: 200px;
+  /* height: 200px; */
   background: var(--gradient-primary);
   border-radius: 8px;
   opacity: 0.8;
@@ -240,6 +244,7 @@ nav ul li a {
   overflow: hidden;
   border-radius: 12px;
   backdrop-filter: blur(10px);
+  height: fit-content !important;
 }
 
 .switch-language-button-container {
@@ -288,18 +293,152 @@ nav ul li a {
   color: #080808;
 }
 
-.feature-image {
-  margin-top: 1rem;
-  height: 200px;
-  background: var(--gradient-primary);
-  border-radius: 8px;
-  opacity: 0.8;
-}
 .pause-sign {
   display: none;
 }
 .play-sign {
   display: block;
+}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+.slider-dot-container {
+  text-align: center;
+  position: relative;
+  bottom: 0;
+}
+/* Hide the images by default */
+.mySlides {
+  display: none;
+  padding: 70px 20% 15px 20%;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  z-index: 10;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.video-controls {
+  margin-top: 10px;
+  text-align: center;
+}
+.seek-bar {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(to right, #4caf50, #2196f3);
+  border-radius: 5px;
+  outline: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+.seek-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 2px solid #2196f3;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.seek-bar::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+.seek-bar::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 2px solid #2196f3;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.seek-bar::-moz-range-thumb:hover {
+  transform: scale(1.2);
 }
 
 @media (max-width: 640px) {

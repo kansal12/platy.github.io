@@ -40,12 +40,72 @@ document.querySelectorAll(".feature-card, .benefit-card").forEach((card) => {
 // Initialize gradient animation
 updateGradient();
 
+// dot navigation
+
+let slideIndex = 1;
+// showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides((slideIndex += n));
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides((slideIndex = n));
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {
+    slideIndex = 1;
+  }
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].className += " active";
+}
 // Video data array
 const videos = [
   {
     id: "video1",
     videoSrc: "assets/videos/video.mp4", // Update with your actual video path
     thumbnail: "assets/img/path.jpg",
+    audioTracks: {
+      original: "assets/audios/vocals.mp3", // Update with your actual audio path
+      dub: "assets/audios/dubbed_track.wav", // Update with your actual audio path
+    },
+    flags: {
+      dub: "assets/img/en-flag.webp", // Update with your actual flag imgae
+      original: "assets/img/Flag_of_Russia.png",
+    },
+  },
+  {
+    id: "video2",
+    videoSrc: "assets/videos/video.mp4", // Update with your actual video path
+    thumbnail: "assets/img/Flag_of_Russia.png",
+    audioTracks: {
+      original: "assets/audios/vocals.mp3", // Update with your actual audio path
+      dub: "assets/audios/dubbed_track.wav", // Update with your actual audio path
+    },
+    flags: {
+      dub: "assets/img/en-flag.webp", // Update with your actual flag imgae
+      original: "assets/img/Flag_of_Russia.png",
+    },
+  },
+  {
+    id: "video3",
+    videoSrc: "assets/videos/video.mp4", // Update with your actual video path
+    thumbnail: "assets/img/ind-flag.png",
     audioTracks: {
       original: "assets/audios/vocals.mp3", // Update with your actual audio path
       dub: "assets/audios/dubbed_track.wav", // Update with your actual audio path
@@ -65,16 +125,21 @@ document.addEventListener("DOMContentLoaded", () => {
   videos.forEach((videoData) => {
     // Create container for this video
     const videoContainer = document.createElement("div");
-    videoContainer.className = "video-container";
+    videoContainer.className = "video-container ";
     videoContainer.id = `video-container-${videoData.id}`;
 
     // Set inner HTML for the video container
     videoContainer.innerHTML = `
+    <div class="mySlides fade">
           <!-- Video Element -->
-          <video id="video-${videoData.id}" class="demo-video" muted playsinline preload="metadata" poster="${videoData.thumbnail}">
+          <video id="video-${videoData.id}"  class="demo-video " muted playsinline preload="metadata" poster="${videoData.thumbnail} ">
             <source src="${videoData.videoSrc}" type="video/mp4" >
             Your browser does not support the video tag.
           </video>
+          <div class="video-controls" >
+    <input type="range" class="seek-bar" id="seek-bar-${videoData.id}" value="0" min="0" max="100" step="0.1">
+  </div>
+          
 
           <!-- Audio Tracks -->
           <audio
@@ -87,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ></audio>
 
           <!-- Language Toggle Buttons -->
-          <div class="switch-language-button-container">
+          <div class="switch-language-button-container ">
             <button
               class="flag-img-container"
               id="original-audio-button-${videoData.id}"
@@ -154,6 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </svg>
               </div>
             </button>
+            </div>
           </div>
         `;
 
@@ -177,6 +243,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const playPauseButton = document.getElementById(
       `play-pause-button-${videoData.id}`
     );
+
+    const seekBar = document.getElementById(`seek-bar-${videoData.id}`);
+
+    // Update the seek bar as the video plays
+    video.addEventListener("timeupdate", () => {
+      const progress = (video.currentTime / video.duration) * 100;
+      seekBar.value = progress;
+    });
+
+    // Seek the video when the user interacts with the slider
+    seekBar.addEventListener("input", () => {
+      const seekTo = (seekBar.value / 100) * video.duration;
+      video.currentTime = seekTo;
+    });
 
     // let currentAudio = originalAudio;
     const currentAudioRef = { audio: originalAudio };
@@ -224,6 +304,21 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     });
   });
+
+  const slideDotContainer = document.createElement("div");
+  slideDotContainer.className = "slider-dot-container ";
+  // set inner HTML for the slider dots
+  videos.forEach((video, index) => {
+    const dot = document.createElement("span");
+    dot.className = "dot";
+    dot.setAttribute("onclick", `currentSlide(${index})`);
+    slideDotContainer.appendChild(dot);
+  });
+
+  // Add the container to main container
+  mainContainer.appendChild(slideDotContainer);
+
+  showSlides(slideIndex);
 });
 
 function changePlayPauseSign(
