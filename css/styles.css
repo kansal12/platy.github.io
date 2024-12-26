@@ -317,7 +317,7 @@ nav ul li a {
 /* Hide the images by default */
 .mySlides {
   display: none;
-  padding: 10px 20% 15px 20%;
+  padding: 10px 20% 0 20%;
 }
 
 /* Next & previous buttons */
@@ -373,8 +373,8 @@ nav ul li a {
 /* The dots/bullets/indicators */
 .dot {
   cursor: pointer;
-  height: 15px;
-  width: 15px;
+  width: 1vw;
+  aspect-ratio: 1/1;
   margin: 0 2px;
   background-color: #bbb;
   border-radius: 50%;

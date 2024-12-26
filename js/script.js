@@ -218,10 +218,9 @@ document.addEventListener("DOMContentLoaded", () => {
 </svg>
               </div>
               <div id="pause-sign-${videoData.id}" class="pause-sign">
-                <svg
+               <!--  <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
+                  style="max-width: 24px; max-height: 24px;" width="3vw" height="3vw"
                   fill="none"
                   aria-hidden="true"
                 >
@@ -229,7 +228,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     fill="currentColor"
                     d="M4 3h4v14H4zM12 3h4v14h-4z"
                   ></path>
-                </svg>
+                </svg> -->
+                <svg style="max-width: 24px; max-height: 24px;" width="3vw" height="3vw" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="48" height="48" fill="white" fill-opacity="0.01"/>
+<path d="M16 12V36" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M32 12V36" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
               </div>
             </button>
             </div>
@@ -306,6 +310,18 @@ document.addEventListener("DOMContentLoaded", () => {
     dubAudioPlayButton.addEventListener("click", () => {
       switchLanguage(
         "dub",
+        video,
+        currentAudioRef,
+        playButton,
+        pauseButton,
+        dubAudioPlayButton,
+        originalAudioPlayButton,
+        originalAudio,
+        dubAudio
+      );
+    });
+    video.addEventListener("ended", () => {
+      changePlayPauseSign(
         video,
         currentAudioRef,
         playButton,
