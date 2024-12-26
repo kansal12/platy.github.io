@@ -48,6 +48,16 @@ let slideIndex = 1;
 // Next/previous controls
 function plusSlides(n) {
   showSlides((slideIndex += n));
+  videos.forEach((videoData) => {
+    const video = document.getElementById(`video-${videoData.id}`);
+    const originalAudio = document.getElementById(
+      `original-audio-${videoData.id}`
+    );
+    const dubAudio = document.getElementById(`dub-audio-${videoData.id}`);
+    video.pause();
+    originalAudio.pause();
+    dubAudio.pause();
+  });
 }
 
 // Thumbnail image controls
@@ -78,11 +88,11 @@ function showSlides(n) {
 const videos = [
   {
     id: "video1",
-    videoSrc: "assets/videos/video.mp4", // Update with your actual video path
+    videoSrc: "assets/videos/video1.mp4", // Update with your actual video path
     thumbnail: "assets/img/path.jpg",
     audioTracks: {
-      original: "assets/audios/vocals.mp3", // Update with your actual audio path
-      dub: "assets/audios/dubbed_track.wav", // Update with your actual audio path
+      original: "assets/audios/vocals1.mp3", // Update with your actual audio path
+      dub: "assets/audios/dubbed_track1.wav", // Update with your actual audio path
     },
     flags: {
       dub: "assets/img/en-flag.webp", // Update with your actual flag imgae
@@ -91,11 +101,11 @@ const videos = [
   },
   {
     id: "video2",
-    videoSrc: "assets/videos/video.mp4", // Update with your actual video path
+    videoSrc: "assets/videos/video2.mp4", // Update with your actual video path
     thumbnail: "assets/img/Flag_of_Russia.png",
     audioTracks: {
-      original: "assets/audios/vocals.mp3", // Update with your actual audio path
-      dub: "assets/audios/dubbed_track.wav", // Update with your actual audio path
+      original: "assets/audios/vocals2.mp3", // Update with your actual audio path
+      dub: "assets/audios/dubbed_track2.wav", // Update with your actual audio path
     },
     flags: {
       dub: "assets/img/en-flag.webp", // Update with your actual flag imgae
@@ -104,11 +114,11 @@ const videos = [
   },
   {
     id: "video3",
-    videoSrc: "assets/videos/video.mp4", // Update with your actual video path
+    videoSrc: "assets/videos/video3.mp4", // Update with your actual video path
     thumbnail: "assets/img/ind-flag.png",
     audioTracks: {
-      original: "assets/audios/vocals.mp3", // Update with your actual audio path
-      dub: "assets/audios/dubbed_track.wav", // Update with your actual audio path
+      original: "assets/audios/vocals3.mp3", // Update with your actual audio path
+      dub: "assets/audios/dubbed_track3.wav", // Update with your actual audio path
     },
     flags: {
       dub: "assets/img/en-flag.webp", // Update with your actual flag imgae
@@ -178,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 stroke-width="1.5"
                 d="m6 12 4-4-4-4"
               ></path>
-            </svg>
+            </svg> 
             <button
               class="flag-img-container"
               id="dub-audio-button-${videoData.id}"
@@ -191,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </button>
             <button class="play-pause-button" id="play-pause-button-${videoData.id}" >
               <div id="play-sign-${videoData.id}" class="play-sign">
-                <svg
+               <!--  <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
                   height="20"
@@ -202,7 +212,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     fill="currentColor"
                     d="M17 10 5.75 16.928V3.072z"
                   ></path>
-                </svg>
+                </svg> -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="max-width: 24px; max-height: 24px;" width="3vw" height="3vw">
+  <path d="M9 6c0 -.852 .986 -1.297 1.623 -.783l.084 .076l6 6a1 1 0 0 1 .083 1.32l-.083 .094l-6 6l-.094 .083l-.077 .054l-.096 .054l-.036 .017l-.067 .027l-.108 .032l-.053 .01l-.06 .01l-.057 .004l-.059 .002l-.059 -.002l-.058 -.005l-.06 -.009l-.052 -.01l-.108 -.032l-.067 -.027l-.132 -.07l-.09 -.065l-.081 -.073l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057l-.002 -12.059z"></path>
+</svg>
               </div>
               <div id="pause-sign-${videoData.id}" class="pause-sign">
                 <svg
@@ -311,7 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
   videos.forEach((video, index) => {
     const dot = document.createElement("span");
     dot.className = "dot";
-    dot.setAttribute("onclick", `currentSlide(${index})`);
+    dot.setAttribute("onclick", `currentSlide(${index + 1})`);
     slideDotContainer.appendChild(dot);
   });
 

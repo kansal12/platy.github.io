@@ -258,7 +258,7 @@ nav ul li a {
   margin: auto;
   gap: 6px;
   border-radius: 9999px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255, 0.5);
   padding: 6px;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(0, 0, 0, 0.05) 0px 0px 20px 0px;
@@ -271,8 +271,10 @@ nav ul li a {
 
 .flag-img-container,
 .play-pause-button {
-  height: 40px;
-  width: 40px;
+  width: 5vw; /* Set height relative to viewport width */
+  aspect-ratio: 1 / 1;
+  max-height: 40px;
+  max-width: 40px;
   padding-top: 3px;
   padding: 0 6px;
   border: 0px;
@@ -285,6 +287,7 @@ nav ul li a {
 .play-pause-button {
   color: rgb(255, 255, 255);
   background-color: #080808;
+  padding-top: 1px;
 }
 .active-flag {
   background-color: #080808;
@@ -314,7 +317,7 @@ nav ul li a {
 /* Hide the images by default */
 .mySlides {
   display: none;
-  padding: 70px 20% 15px 20%;
+  padding: 10px 20% 15px 20%;
 }
 
 /* Next & previous buttons */
@@ -400,7 +403,7 @@ nav ul li a {
 }
 
 .video-controls {
-  margin-top: 10px;
+  margin-top: -10px;
   text-align: center;
 }
 .seek-bar {
@@ -460,5 +463,13 @@ nav ul li a {
   }
   .feature-card p {
     font-size: 12px;
+  }
+  .switch-language-button-container {
+    padding: 4px;
+    gap: 3px;
+  }
+  .flag-img-container,
+  .play-pause-button {
+    width: 30px;
   }
 }
