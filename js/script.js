@@ -88,7 +88,7 @@ function showSlides(n) {
 const videos = [
   {
     id: "video1",
-    videoSrc: "assets/videos/video1.mp4", // Update with your actual video path
+    videoSrc: "assets/videos/video01.mp4", // Update with your actual video path
     thumbnail: "assets/img/path.jpg",
     audioTracks: {
       original: "assets/audios/vocals1.mp3", // Update with your actual audio path
@@ -101,7 +101,7 @@ const videos = [
   },
   {
     id: "video2",
-    videoSrc: "assets/videos/video2.mp4", // Update with your actual video path
+    videoSrc: "assets/videos/video02.mp4", // Update with your actual video path
     thumbnail: "assets/img/Flag_of_Russia.png",
     audioTracks: {
       original: "assets/audios/vocals2.mp3", // Update with your actual audio path
@@ -114,7 +114,7 @@ const videos = [
   },
   {
     id: "video3",
-    videoSrc: "assets/videos/video3.mp4", // Update with your actual video path
+    videoSrc: "assets/videos/video03.mp4", // Update with your actual video path
     thumbnail: "assets/img/ind-flag.png",
     audioTracks: {
       original: "assets/audios/vocals3.mp3", // Update with your actual audio path
