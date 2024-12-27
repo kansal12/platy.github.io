@@ -432,6 +432,8 @@ nav ul li a {
   padding: 0 26px;
 }
 .seek-bar {
+  -webkit-tap-highlight-color: transparent;
+  background-clip: content-box;
   -webkit-appearance: none;
   margin: 0px;
   width: 100%;
@@ -443,9 +445,11 @@ nav ul li a {
   cursor: pointer;
 }
 .seek-bar::-webkit-slider-thumb {
+  will-change: transform;
   -webkit-appearance: none;
+  pointer-events: auto;
   width: 20px;
-  height: 20px;
+  /* height: 20px; */
   background: #fff;
   border: 2px solid #2196f3;
   border-radius: 50%;
@@ -458,7 +462,7 @@ nav ul li a {
 }
 .seek-bar::-moz-range-thumb {
   width: 20px;
-  height: 20px;
+  /* height: 20px; */
   background: #fff;
   border: 2px solid #2196f3;
   border-radius: 50%;
