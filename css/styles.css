@@ -490,6 +490,9 @@ nav ul li a {
   .subtitle {
     font-size: 11px;
   }
+  .features {
+    padding: 2rem 1rem;
+  }
   .feature-card {
     margin: 0;
     margin-bottom: 40px;
@@ -510,13 +513,16 @@ nav ul li a {
   }
   .dub-play-sign,
   .karaoke-play-sign {
-    top: 65%;
+    top: 59%;
   }
   .mySlides,
   .karaoke-slides {
-    padding: 10px 5% 0 5%;
+    padding: 20px 5px 0 5px;
   }
   .demo-video-container {
     height: 41vw;
+  }
+  .video-controls {
+    padding: 0 10%;
   }
 }
