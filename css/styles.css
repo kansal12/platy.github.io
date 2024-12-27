@@ -300,7 +300,8 @@ nav ul li a {
 .pause-sign {
   display: none;
 }
-.dub-play-sign {
+.dub-play-sign,
+.karaoke-play-sign {
   cursor: pointer;
   position: absolute;
   top: 50%;
@@ -381,7 +382,8 @@ nav ul li a {
 }
 
 /* The dots/bullets/indicators */
-.dub-dot {
+.dub-dot,
+.karaoke-dot {
   cursor: pointer;
   width: 4px;
   aspect-ratio: 1/1;
@@ -482,7 +484,8 @@ nav ul li a {
   .play-pause-button {
     width: 30px;
   }
-  .dub-play-sign {
+  .dub-play-sign,
+  .karaoke-play-sign {
     top: 65%;
   }
 }

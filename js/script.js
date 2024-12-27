@@ -170,23 +170,23 @@ const videos = [
 const karaokes = [
   {
     id: "video1",
-    videoSrc: "assets/videos/video1.mp4", // Update with your actual video path
+    videoSrc: "assets/videos/video_song_bar.mp4", // Update with your actual video path
     videoThumbnail: "assets/img/ind-flag.png",
-    karaokeSrc: "assets/videos/karaoke1.mp4",
+    karaokeSrc: "assets/videos/karaoke_output_bar.mp4",
     karaokeThumbnail: "assets/img/path.jpg",
   },
   {
     id: "video2",
-    videoSrc: "assets/videos/video1.mp4", // Update with your actual video path
+    videoSrc: "assets/videos/video_song_perfect.mp4", // Update with your actual video path
     videoThumbnail: "assets/img/path.jpg",
-    karaokeSrc: "assets/videos/karaoke1.mp4",
+    karaokeSrc: "assets/videos/karaoke_output_perfect.mp4",
     karaokeThumbnail: "assets/img/path.jpg",
   },
   {
     id: "video3",
-    videoSrc: "assets/videos/video1.mp4", // Update with your actual video path
+    videoSrc: "assets/videos/video_song_season.mp4", // Update with your actual video path
     videoThumbnail: "assets/img/path.jpg",
-    karaokeSrc: "assets/videos/karaoke1.mp4",
+    karaokeSrc: "assets/videos/karaoke_output_season.mp4",
     karaokeThumbnail: "assets/img/path.jpg",
   },
 ];
@@ -401,15 +401,15 @@ document.addEventListener("DOMContentLoaded", () => {
     karaokeContainer.innerHTML = `
     <div class="karaoke-slides fade">
           <!-- Video Element -->
-          <video id="original-video-${karaoke.id}"  class="demo-video " muted playsinline preload="metadata" poster="${karaoke.videoThumbnail} ">
+          <video id="original-video-${karaoke.id}"  class="demo-video " playsinline preload="metadata" poster="${karaoke.videoThumbnail} ">
             <source src="${karaoke.videoSrc}" type="video/mp4" >
             Your browser does not support the video tag.'
           </video>
-          <video id="karaoke-video-${karaoke.id}"  class="demo-video " muted playsinline preload="metadata" poster="${karaoke.karaokeThumbnail} ">
+          <video id="karaoke-video-${karaoke.id}"  class="demo-video " playsinline preload="metadata" poster="${karaoke.karaokeThumbnail} ">
             <source src="${karaoke.karaokeSrc}" type="video/mp4" >
             Your browser does not support the video tag.'
           </video>
-          <div id="play-sign-${karaoke.id}" class="play-sign">
+          <div id="karaoke-play-sign-${karaoke.id}" class="karaoke-play-sign">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="max-width: 24px; max-height: 24px;" width="3vw" height="3vw">
               <path d="M9 6c0 -.852 .986 -1.297 1.623 -.783l.084 .076l6 6a1 1 0 0 1 .083 1.32l-.083 .094l-6 6l-.094 .083l-.077 .054l-.096 .054l-.036 .017l-.067 .027l-.108 .032l-.053 .01l-.06 .01l-.057 .004l-.059 .002l-.059 -.002l-.058 -.005l-.06 -.009l-.052 -.01l-.108 -.032l-.067 -.027l-.132 -.07l-.09 -.065l-.081 -.073l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057l-.002 -12.059z"></path>
             </svg>
@@ -422,8 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="switch-language-button-container ">
             <button
               class="video-play-button"
-              id="original-audio-button-${karaoke.id}"
-              onclick="switchLanguage('original')"
+              id="original-video-play-button-${karaoke.id}"
             >
               song
             </button>
@@ -444,8 +443,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </svg> 
             <button
               class="karaoke-play-button"
-              id="dub-audio-button-${karaoke.id}"
-              onclick="switchLanguage('dub')"
+              id="karaoke-video-play-button-${karaoke.id}"
             >
               karaoke
             </button>
@@ -461,38 +459,143 @@ document.addEventListener("DOMContentLoaded", () => {
       `original-video-${karaoke.id}`
     );
     const karaokeVideo = document.getElementById(`karaoke-video-${karaoke.id}`);
-    const karaokeVideoPlayButton = document.getElementById(
+    const karaokePlaySign = document.getElementById(
       `karaoke-play-sign-${karaoke.id}`
     );
-    const karaokePlayButton = document.getElementById("playButton");
+    const karaokeVideoPlayButton = document.getElementById(
+      `karaoke-video-play-button-${karaoke.id}`
+    );
     const originalVideoPlayButton = document.getElementById(
-      "originalVideoPlayButton"
+      `original-video-play-button-${karaoke.id}`
     );
 
     const seekBar = document.getElementById(`seek-karaoke-bar-${karaoke.id}`);
+
+    const currentKaraokeDemoRef = { video: originalVideo };
+
+    originalVideo.style.display = "block";
+    karaokeVideo.style.display = "none";
 
     // Update the seek bar as the video plays
     karaokeVideo.addEventListener("timeupdate", () => {
       const progress = (karaokeVideo.currentTime / karaokeVideo.duration) * 100;
       seekBar.value = progress;
-      originalVideo.currentTime = karaokeVideo.currentTime;
+      // originalVideo.currentTime = karaokeVideo.currentTime;
+    });
+
+    // Update the seek bar as the video plays
+    originalVideo.addEventListener("timeupdate", () => {
+      const progress =
+        (originalVideo.currentTime / originalVideo.duration) * 100;
+      seekBar.value = progress;
+      // karaokeVideo.currentTime = originalVideo.currentTime;
     });
 
     // Seek the video when the user interacts with the slider
     seekBar.addEventListener("input", () => {
-      const seekTo = (seekBar.value / 100) * video.duration;
+      const seekTo = (seekBar.value / 100) * karaokeVideo.duration;
       karaokeVideo.currentTime = seekTo;
       originalVideo.currentTime = seekTo;
     });
-  });
 
-  switchKaraokeVideo(
-    originalVideo,
-    karaokeVideo,
-    playButton,
-    originalVideoPlayButton,
-    karaokeVideoPlayButton
-  );
+    // Add event listener for the main play button
+    karaokePlaySign.addEventListener("click", () => {
+      if (originalVideo.paused && karaokeVideo.played) {
+        // Play both videos when play button is clicked
+        originalVideo.play();
+        karaokeVideo.pause();
+
+        originalVideoPlayButton.classList.add("active-flag");
+        karaokeVideoPlayButton.classList.remove("active-flag");
+
+        karaokePlaySign.style.display = "none";
+      } else if (originalVideo.played && karaokeVideo.paused) {
+        // Pause both videos when play button is clicked again
+        originalVideo.pause();
+        karaokeVideo.play();
+
+        originalVideoPlayButton.classList.remove("active-flag");
+        karaokeVideoPlayButton.classList.add("active-flag");
+
+        karaokePlaySign.style.display = "none";
+      } else if (originalVideo.paused && karaokeVideo.paused) {
+        // Pause both videos when play button is clicked again
+        originalVideo.play();
+        karaokeVideo.pause();
+
+        originalVideoPlayButton.classList.add("active-flag");
+        karaokeVideoPlayButton.classList.remove("active-flag");
+
+        karaokePlaySign.style.display = "none";
+      }
+    });
+
+    originalVideo.addEventListener("click", () => {
+      if (originalVideo.paused) {
+        originalVideo.play();
+        karaokePlaySign.style.display = "none";
+      } else {
+        originalVideo.pause();
+        karaokePlaySign.style.display = "block";
+      }
+    });
+
+    karaokeVideo.addEventListener("click", () => {
+      if (karaokeVideo.paused) {
+        karaokeVideo.play();
+        karaokePlaySign.style.display = "none";
+      } else {
+        karaokeVideo.pause();
+        karaokePlaySign.style.display = "block";
+      }
+    });
+
+    // Add event listener for the original video play button
+    originalVideoPlayButton.addEventListener("click", () => {
+      if (originalVideo.paused) {
+        originalVideo.play();
+        karaokeVideo.pause();
+
+        originalVideoPlayButton.classList.add("active-flag");
+        karaokeVideoPlayButton.classList.remove("active-flag");
+
+        karaokePlaySign.style.display = "none";
+        karaokeVideo.style.display = "none";
+        originalVideo.style.display = "block";
+      } else {
+        originalVideo.pause();
+        karaokeVideo.play();
+
+        originalVideoPlayButton.classList.remove("active-flag");
+        karaokeVideoPlayButton.classList.add("active-flag");
+
+        karaokePlaySign.style.display = "none";
+      }
+    });
+
+    // Add event listener for the karaoke video play button
+    karaokeVideoPlayButton.addEventListener("click", () => {
+      if (karaokeVideo.paused) {
+        originalVideo.pause();
+        karaokeVideo.play();
+
+        originalVideoPlayButton.classList.remove("active-flag");
+        karaokeVideoPlayButton.classList.add("active-flag");
+
+        karaokePlaySign.style.display = "none";
+        karaokeVideo.style.display = "block";
+        originalVideo.style.display = "none";
+      } else {
+        originalVideo.play();
+        karaokeVideo.pause();
+
+        originalVideoPlayButton.classList.add("active-flag");
+        karaokeVideoPlayButton.classList.remove("active-flag");
+
+        karaokePlaySign.style.display = "none";
+      }
+    });
+  });
 
   const slideKaraokeDotContainer = document.createElement("div");
   slideKaraokeDotContainer.className = "slider-karaoke-dot-container ";
@@ -606,33 +709,39 @@ function switchLanguage(
 function switchKaraokeVideo(
   originalVideo,
   karaokeVideo,
-  playButton,
+  playPauseButton,
   originalVideoPlayButton,
   karaokeVideoPlayButton
 ) {
   // Add event listener for the main play button
-  playButton.addEventListener("click", () => {
+  playPauseButton.addEventListener("click", () => {
     if (originalVideo.paused && karaokeVideo.played) {
       // Play both videos when play button is clicked
-      karaokeVideo.pause();
       originalVideo.play();
-      originalVideoPlayButton.style.display = "block";
-      karaokeVideoPlayButton.style.display = "none";
-      playButton.style.display = "none";
+      karaokeVideo.pause();
+
+      originalVideoPlayButton.classList.add("active-flag");
+      karaokeVideoPlayButton.classList.remove("active-flag");
+
+      playPauseButton.style.display = "none";
     } else if (originalVideo.played && karaokeVideo.paused) {
       // Pause both videos when play button is clicked again
       originalVideo.pause();
       karaokeVideo.play();
-      originalVideoPlayButton.style.display = "none";
-      karaokeVideoPlayButton.style.display = "block";
-      playButton.style.display = "none";
+
+      originalVideoPlayButton.classList.remove("active-flag");
+      karaokeVideoPlayButton.classList.add("active-flag");
+
+      playPauseButton.style.display = "none";
     } else if (originalVideo.paused && karaokeVideo.paused) {
       // Pause both videos when play button is clicked again
       originalVideo.play();
       karaokeVideo.pause();
-      originalVideoPlayButton.style.display = "block";
-      karaokeVideoPlayButton.style.display = "none";
-      playButton.style.display = "none";
+
+      originalVideoPlayButton.classList.add("active-flag");
+      karaokeVideoPlayButton.classList.remove("active-flag");
+
+      playPauseButton.style.display = "none";
     }
   });
 
@@ -641,15 +750,19 @@ function switchKaraokeVideo(
     if (originalVideo.paused) {
       originalVideo.play();
       karaokeVideo.pause();
-      originalVideoPlayButton.style.display = "block";
-      karaokeVideoPlayButton.style.display = "none";
-      playButton.style.display = "none";
+
+      originalVideoPlayButton.classList.add("active-flag");
+      karaokeVideoPlayButton.classList.remove("active-flag");
+
+      playPauseButton.style.display = "none";
     } else {
       originalVideo.pause();
       karaokeVideo.play();
-      originalVideoPlayButton.style.display = "none";
-      karaokeVideoPlayButton.style.display = "block";
-      playButton.style.display = "none";
+
+      originalVideoPlayButton.classList.remove("active-flag");
+      karaokeVideoPlayButton.classList.add("active-flag");
+
+      playPauseButton.style.display = "none";
     }
   });
 
@@ -658,15 +771,19 @@ function switchKaraokeVideo(
     if (karaokeVideo.paused) {
       originalVideo.pause();
       karaokeVideo.play();
-      originalVideoPlayButton.style.display = "none";
-      karaokeVideoPlayButton.style.display = "block";
-      playButton.style.display = "none";
+
+      originalVideoPlayButton.classList.remove("active-flag");
+      karaokeVideoPlayButton.classList.add("active-flag");
+
+      playPauseButton.style.display = "none";
     } else {
-      karaokeVideo.pause();
       originalVideo.play();
-      originalVideoPlayButton.style.display = "block";
-      karaokeVideoPlayButton.style.display = "none";
-      playButton.style.display = "none";
+      karaokeVideo.pause();
+
+      originalVideoPlayButton.classList.add("active-flag");
+      karaokeVideoPlayButton.classList.remove("active-flag");
+
+      playPauseButton.style.display = "none";
     }
   });
 }
