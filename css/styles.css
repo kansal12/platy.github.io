@@ -468,6 +468,12 @@ nav ul li a {
   transform: scale(1.2);
 }
 
+@media (min-width: 1350px) {
+  .demo-video-container {
+    max-height: 30vw;
+  }
+}
+
 @media (max-width: 640px) {
   .logo img {
     height: 16px;
@@ -499,5 +505,12 @@ nav ul li a {
   .dub-play-sign,
   .karaoke-play-sign {
     top: 65%;
+  }
+  .mySlides,
+  .karaoke-slides {
+    padding: 10px 5% 0 5%;
+  }
+  .demo-video-container {
+    height: 41vw;
   }
 }
