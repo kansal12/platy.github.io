@@ -238,7 +238,8 @@ nav ul li a {
   color: #dbe0db;
 }
 
-.video-container {
+.video-container,
+.karaoke-container {
   position: relative;
   margin: auto;
   overflow: hidden;
@@ -299,8 +300,15 @@ nav ul li a {
 .pause-sign {
   display: none;
 }
-.play-sign {
-  display: block;
+.dub-play-sign {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  border-radius: 4px;
+  padding: 7px 10px 5px 10px;
 }
 
 /* Slideshow container */
@@ -309,13 +317,15 @@ nav ul li a {
   position: relative;
   margin: auto;
 }
-.slider-dot-container {
+.slider-dub-dot-container,
+.slider-karaoke-dot-container {
   text-align: center;
   position: relative;
   bottom: 0;
 }
 /* Hide the images by default */
-.mySlides {
+.mySlides,
+.karaoke-slides {
   display: none;
   padding: 10px 20% 0 20%;
 }
@@ -371,9 +381,9 @@ nav ul li a {
 }
 
 /* The dots/bullets/indicators */
-.dot {
+.dub-dot {
   cursor: pointer;
-  width: 1vw;
+  width: 4px;
   aspect-ratio: 1/1;
   margin: 0 2px;
   background-color: #bbb;
@@ -471,5 +481,8 @@ nav ul li a {
   .flag-img-container,
   .play-pause-button {
     width: 30px;
+  }
+  .dub-play-sign {
+    top: 65%;
   }
 }

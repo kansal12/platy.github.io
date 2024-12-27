@@ -42,38 +42,56 @@ updateGradient();
 
 // dot navigation
 
-let slideIndex = 1;
-// showSlides(slideIndex);
+let dubSlideIndex = 1;
+let karaokeSlideIndex = 1;
 
 // Next/previous controls
-function plusSlides(n) {
-  showSlides((slideIndex += n));
+function plusDubSlides(n) {
+  showDubDemoSlides((dubSlideIndex += n));
   videos.forEach((videoData) => {
     const video = document.getElementById(`video-${videoData.id}`);
     const originalAudio = document.getElementById(
       `original-audio-${videoData.id}`
     );
     const dubAudio = document.getElementById(`dub-audio-${videoData.id}`);
+
     video.pause();
     originalAudio.pause();
     dubAudio.pause();
   });
 }
 
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides((slideIndex = n));
+function plusKaraokeSlides(n) {
+  showKaraokeDemoSlides((karaokeSlideIndex += n));
+  karaokes.forEach((videoData) => {
+    const originVideo = document.getElementById(
+      `original-video-${videoData.id}`
+    );
+    const karaokeVideo = document.getElementById(
+      `karaoke-video-${videoData.id}`
+    );
+
+    originVideo.pause();
+    karaokeVideo.pause();
+  });
 }
 
-function showSlides(n) {
+function currentDubSlide(n) {
+  showDubDemoSlides((dubSlideIndex = n));
+}
+function currentKaraokeSlide(n) {
+  showKaraokeDemoSlides((karaokeSlideIndex = n));
+}
+
+function showDubDemoSlides(n) {
   let i;
   let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
+  let dots = document.getElementsByClassName("dub-dot");
   if (n > slides.length) {
-    slideIndex = 1;
+    dubSlideIndex = 1;
   }
   if (n < 1) {
-    slideIndex = slides.length;
+    dubSlideIndex = slides.length;
   }
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
@@ -81,9 +99,30 @@ function showSlides(n) {
   for (i = 0; i < dots.length; i++) {
     dots[i].className = dots[i].className.replace(" active", "");
   }
-  slides[slideIndex - 1].style.display = "block";
-  dots[slideIndex - 1].className += " active";
+  slides[dubSlideIndex - 1].style.display = "block";
+  dots[dubSlideIndex - 1].className += " active";
 }
+
+function showKaraokeDemoSlides(n) {
+  let i;
+  let karaokeSlides = document.getElementsByClassName("karaoke-slides");
+  let karaokeDots = document.getElementsByClassName("karaoke-dot");
+  if (n > karaokeSlides.length) {
+    karaokeSlideIndex = 1;
+  }
+  if (n < 1) {
+    karaokeSlideIndex = karaokeSlides.length;
+  }
+  for (i = 0; i < karaokeSlides.length; i++) {
+    karaokeSlides[i].style.display = "none";
+  }
+  for (i = 0; i < karaokeDots.length; i++) {
+    karaokeDots[i].className = karaokeDots[i].className.replace(" active", "");
+  }
+  karaokeSlides[karaokeSlideIndex - 1].style.display = "block";
+  karaokeDots[karaokeSlideIndex - 1].className += " active";
+}
+
 // Video data array
 const videos = [
   {
@@ -127,6 +166,31 @@ const videos = [
   },
 ];
 
+// Video data array
+const karaokes = [
+  {
+    id: "video1",
+    videoSrc: "assets/videos/video1.mp4", // Update with your actual video path
+    videoThumbnail: "assets/img/ind-flag.png",
+    karaokeSrc: "assets/videos/karaoke1.mp4",
+    karaokeThumbnail: "assets/img/path.jpg",
+  },
+  {
+    id: "video2",
+    videoSrc: "assets/videos/video1.mp4", // Update with your actual video path
+    videoThumbnail: "assets/img/path.jpg",
+    karaokeSrc: "assets/videos/karaoke1.mp4",
+    karaokeThumbnail: "assets/img/path.jpg",
+  },
+  {
+    id: "video3",
+    videoSrc: "assets/videos/video1.mp4", // Update with your actual video path
+    videoThumbnail: "assets/img/path.jpg",
+    karaokeSrc: "assets/videos/karaoke1.mp4",
+    karaokeThumbnail: "assets/img/path.jpg",
+  },
+];
+
 // Wait for DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   const mainContainer = document.getElementById("demo-videos");
@@ -144,11 +208,16 @@ document.addEventListener("DOMContentLoaded", () => {
           <!-- Video Element -->
           <video id="video-${videoData.id}"  class="demo-video " muted playsinline preload="metadata" poster="${videoData.thumbnail} ">
             <source src="${videoData.videoSrc}" type="video/mp4" >
-            Your browser does not support the video tag.
+            Your browser does not support the video tag.'
           </video>
+          <div id="dub-play-sign-${videoData.id}" class="dub-play-sign">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="max-width: 24px; max-height: 24px;" width="3vw" height="3vw">
+              <path d="M9 6c0 -.852 .986 -1.297 1.623 -.783l.084 .076l6 6a1 1 0 0 1 .083 1.32l-.083 .094l-6 6l-.094 .083l-.077 .054l-.096 .054l-.036 .017l-.067 .027l-.108 .032l-.053 .01l-.06 .01l-.057 .004l-.059 .002l-.059 -.002l-.058 -.005l-.06 -.009l-.052 -.01l-.108 -.032l-.067 -.027l-.132 -.07l-.09 -.065l-.081 -.073l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057l-.002 -12.059z"></path>
+            </svg>
+          </div>
           <div class="video-controls" >
-    <input type="range" class="seek-bar" id="seek-bar-${videoData.id}" value="0" min="0" max="100" step="0.1">
-  </div>
+            <input type="range" class="seek-bar" id="dub-seek-bar-${videoData.id}" value="0" min="0" max="100" step="0.1">
+          </div>
           
 
           <!-- Audio Tracks -->
@@ -199,43 +268,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 src="${videoData.flags.dub}"
               />
             </button>
-            <button class="play-pause-button" id="play-pause-button-${videoData.id}" >
-              <div id="play-sign-${videoData.id}" class="play-sign">
-               <!--  <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M17 10 5.75 16.928V3.072z"
-                  ></path>
-                </svg> -->
+            <!-- <button class="play-pause-button" id="play-pause-button-${videoData.id}" >
+              <div id="dub-play-sign-${videoData.id}" class="play-sign">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="max-width: 24px; max-height: 24px;" width="3vw" height="3vw">
-  <path d="M9 6c0 -.852 .986 -1.297 1.623 -.783l.084 .076l6 6a1 1 0 0 1 .083 1.32l-.083 .094l-6 6l-.094 .083l-.077 .054l-.096 .054l-.036 .017l-.067 .027l-.108 .032l-.053 .01l-.06 .01l-.057 .004l-.059 .002l-.059 -.002l-.058 -.005l-.06 -.009l-.052 -.01l-.108 -.032l-.067 -.027l-.132 -.07l-.09 -.065l-.081 -.073l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057l-.002 -12.059z"></path>
-</svg>
+                  <path d="M9 6c0 -.852 .986 -1.297 1.623 -.783l.084 .076l6 6a1 1 0 0 1 .083 1.32l-.083 .094l-6 6l-.094 .083l-.077 .054l-.096 .054l-.036 .017l-.067 .027l-.108 .032l-.053 .01l-.06 .01l-.057 .004l-.059 .002l-.059 -.002l-.058 -.005l-.06 -.009l-.052 -.01l-.108 -.032l-.067 -.027l-.132 -.07l-.09 -.065l-.081 -.073l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057l-.002 -12.059z"></path>
+                </svg>
               </div>
+
               <div id="pause-sign-${videoData.id}" class="pause-sign">
-               <!--  <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  style="max-width: 24px; max-height: 24px;" width="3vw" height="3vw"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M4 3h4v14H4zM12 3h4v14h-4z"
-                  ></path>
-                </svg> -->
                 <svg style="max-width: 24px; max-height: 24px;" width="3vw" height="3vw" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="48" height="48" fill="white" fill-opacity="0.01"/>
-<path d="M16 12V36" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M32 12V36" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+                  <rect width="48" height="48" fill="white" fill-opacity="0.01"/>
+                  <path d="M16 12V36" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M32 12V36" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-            </button>
+            </button> -->
             </div>
           </div>
         `;
@@ -255,13 +302,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const dubAudioPlayButton = document.getElementById(
       `dub-audio-button-${videoData.id}`
     );
-    const playButton = document.getElementById(`play-sign-${videoData.id}`);
-    const pauseButton = document.getElementById(`pause-sign-${videoData.id}`);
-    const playPauseButton = document.getElementById(
-      `play-pause-button-${videoData.id}`
-    );
+    const playButton = document.getElementById(`dub-play-sign-${videoData.id}`);
 
-    const seekBar = document.getElementById(`seek-bar-${videoData.id}`);
+    const seekBar = document.getElementById(`dub-seek-bar-${videoData.id}`);
+
+    // let currentAudio = originalAudio;
+    const currentAudioRef = { audio: originalAudio };
 
     // Update the seek bar as the video plays
     video.addEventListener("timeupdate", () => {
@@ -273,21 +319,26 @@ document.addEventListener("DOMContentLoaded", () => {
     seekBar.addEventListener("input", () => {
       const seekTo = (seekBar.value / 100) * video.duration;
       video.currentTime = seekTo;
+      currentAudioRef.audio.currentTime = seekTo;
     });
 
-    // let currentAudio = originalAudio;
-    const currentAudioRef = { audio: originalAudio };
-
     // Add event listeners
-    // video.addEventListener("click", () =>
-    //   playPauseVideo(video, currentAudio, playPauseButton)
-    // );
-    playPauseButton.addEventListener("click", () =>
+    video.addEventListener("click", () =>
       playPauseDemoVideo(
         video,
         currentAudioRef,
         playButton,
-        pauseButton,
+        dubAudioPlayButton,
+        originalAudioPlayButton,
+        originalAudio,
+        dubAudio
+      )
+    );
+    playButton.addEventListener("click", () =>
+      playPauseDemoVideo(
+        video,
+        currentAudioRef,
+        playButton,
         dubAudioPlayButton,
         originalAudioPlayButton,
         originalAudio,
@@ -300,7 +351,6 @@ document.addEventListener("DOMContentLoaded", () => {
         video,
         currentAudioRef,
         playButton,
-        pauseButton,
         dubAudioPlayButton,
         originalAudioPlayButton,
         originalAudio,
@@ -313,48 +363,157 @@ document.addEventListener("DOMContentLoaded", () => {
         video,
         currentAudioRef,
         playButton,
-        pauseButton,
         dubAudioPlayButton,
         originalAudioPlayButton,
         originalAudio,
         dubAudio
       );
     });
-    video.addEventListener("ended", () => {
-      changePlayPauseSign(
-        video,
-        currentAudioRef,
-        playButton,
-        pauseButton,
-        dubAudioPlayButton,
-        originalAudioPlayButton,
-        originalAudio,
-        dubAudio
-      );
-    });
+    video.addEventListener("ended", () => {});
   });
 
-  const slideDotContainer = document.createElement("div");
-  slideDotContainer.className = "slider-dot-container ";
+  const slideDubDotContainer = document.createElement("div");
+  slideDubDotContainer.className = "slider-dub-dot-container ";
   // set inner HTML for the slider dots
   videos.forEach((video, index) => {
     const dot = document.createElement("span");
-    dot.className = "dot";
-    dot.setAttribute("onclick", `currentSlide(${index + 1})`);
-    slideDotContainer.appendChild(dot);
+    dot.className = "dub-dot";
+    dot.setAttribute("onclick", `currentDubSlide(${index + 1})`);
+    slideDubDotContainer.appendChild(dot);
   });
 
   // Add the container to main container
-  mainContainer.appendChild(slideDotContainer);
+  mainContainer.appendChild(slideDubDotContainer);
 
-  showSlides(slideIndex);
+  showDubDemoSlides(dubSlideIndex);
+
+  // Create karaoke players
+  const karaokeDemoContainer = document.getElementById("demo-karaokes");
+
+  // Create video players
+  karaokes.forEach((karaoke) => {
+    // Create container for this video
+    const karaokeContainer = document.createElement("div");
+    karaokeContainer.className = "karaoke-container ";
+    karaokeContainer.id = `karaoke-container-${karaoke.id}`;
+
+    // Set inner HTML for the video container
+    karaokeContainer.innerHTML = `
+    <div class="karaoke-slides fade">
+          <!-- Video Element -->
+          <video id="original-video-${karaoke.id}"  class="demo-video " muted playsinline preload="metadata" poster="${karaoke.videoThumbnail} ">
+            <source src="${karaoke.videoSrc}" type="video/mp4" >
+            Your browser does not support the video tag.'
+          </video>
+          <video id="karaoke-video-${karaoke.id}"  class="demo-video " muted playsinline preload="metadata" poster="${karaoke.karaokeThumbnail} ">
+            <source src="${karaoke.karaokeSrc}" type="video/mp4" >
+            Your browser does not support the video tag.'
+          </video>
+          <div id="play-sign-${karaoke.id}" class="play-sign">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="max-width: 24px; max-height: 24px;" width="3vw" height="3vw">
+              <path d="M9 6c0 -.852 .986 -1.297 1.623 -.783l.084 .076l6 6a1 1 0 0 1 .083 1.32l-.083 .094l-6 6l-.094 .083l-.077 .054l-.096 .054l-.036 .017l-.067 .027l-.108 .032l-.053 .01l-.06 .01l-.057 .004l-.059 .002l-.059 -.002l-.058 -.005l-.06 -.009l-.052 -.01l-.108 -.032l-.067 -.027l-.132 -.07l-.09 -.065l-.081 -.073l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057l-.002 -12.059z"></path>
+            </svg>
+          </div>
+          <div class="video-controls" >
+            <input type="range" class="seek-bar" id="seek-karaoke-bar-${karaoke.id}" value="0" min="0" max="100" step="0.1">
+          </div>
+
+          <!-- Language Toggle Buttons -->
+          <div class="switch-language-button-container ">
+            <button
+              class="video-play-button"
+              id="original-audio-button-${karaoke.id}"
+              onclick="switchLanguage('original')"
+            >
+              song
+            </button>
+            <!-- greater than sign -->
+            <svg
+              class="greater-than-sign"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                stroke="currentColor"
+                stroke-width="1.5"
+                d="m6 12 4-4-4-4"
+              ></path>
+            </svg> 
+            <button
+              class="karaoke-play-button"
+              id="dub-audio-button-${karaoke.id}"
+              onclick="switchLanguage('dub')"
+            >
+              karaoke
+            </button>
+            </div>
+          </div>
+        `;
+
+    // Add the container to main container
+    karaokeDemoContainer.appendChild(karaokeContainer);
+
+    // Initialize video functionality
+    const originalVideo = document.getElementById(
+      `original-video-${karaoke.id}`
+    );
+    const karaokeVideo = document.getElementById(`karaoke-video-${karaoke.id}`);
+    const karaokeVideoPlayButton = document.getElementById(
+      `karaoke-play-sign-${karaoke.id}`
+    );
+    const karaokePlayButton = document.getElementById("playButton");
+    const originalVideoPlayButton = document.getElementById(
+      "originalVideoPlayButton"
+    );
+
+    const seekBar = document.getElementById(`seek-karaoke-bar-${karaoke.id}`);
+
+    // Update the seek bar as the video plays
+    karaokeVideo.addEventListener("timeupdate", () => {
+      const progress = (karaokeVideo.currentTime / karaokeVideo.duration) * 100;
+      seekBar.value = progress;
+      originalVideo.currentTime = karaokeVideo.currentTime;
+    });
+
+    // Seek the video when the user interacts with the slider
+    seekBar.addEventListener("input", () => {
+      const seekTo = (seekBar.value / 100) * video.duration;
+      karaokeVideo.currentTime = seekTo;
+      originalVideo.currentTime = seekTo;
+    });
+  });
+
+  switchKaraokeVideo(
+    originalVideo,
+    karaokeVideo,
+    playButton,
+    originalVideoPlayButton,
+    karaokeVideoPlayButton
+  );
+
+  const slideKaraokeDotContainer = document.createElement("div");
+  slideKaraokeDotContainer.className = "slider-karaoke-dot-container ";
+  // set inner HTML for the slider dots
+  videos.forEach((video, index) => {
+    const dot = document.createElement("span");
+    dot.className = "karaoke-dot";
+    dot.setAttribute("onclick", `currentKaraokeSlide(${index + 1})`);
+    slideKaraokeDotContainer.appendChild(dot);
+  });
+
+  // Add the container to main container
+  karaokeDemoContainer.appendChild(slideKaraokeDotContainer);
+
+  showKaraokeDemoSlides(karaokeSlideIndex);
 });
 
 function changePlayPauseSign(
   video,
   currentAudioRef,
   playButton,
-  pauseButton,
   dubAudioPlayButton,
   originalAudioPlayButton,
   originalAudio,
@@ -362,13 +521,11 @@ function changePlayPauseSign(
 ) {
   if (video.paused) {
     playButton.style.display = "block";
-    pauseButton.style.display = "none";
 
     dubAudioPlayButton.classList.remove("active-flag");
     originalAudioPlayButton.classList.remove("active-flag");
   } else {
     playButton.style.display = "none";
-    pauseButton.style.display = "block";
     if (currentAudioRef.audio === originalAudio) {
       originalAudioPlayButton.classList.add("active-flag");
       dubAudioPlayButton.classList.remove("active-flag");
@@ -383,7 +540,6 @@ function playPauseDemoVideo(
   video,
   currentAudioRef,
   playButton,
-  pauseButton,
   dubAudioPlayButton,
   originalAudioPlayButton,
   originalAudio,
@@ -400,20 +556,17 @@ function playPauseDemoVideo(
     video,
     currentAudioRef,
     playButton,
-    pauseButton,
     dubAudioPlayButton,
     originalAudioPlayButton,
     originalAudio,
     dubAudio
   );
 }
-
 function switchLanguage(
   language,
   video,
   currentAudioRef,
   playButton,
-  pauseButton,
   dubAudioPlayButton,
   originalAudioPlayButton,
   originalAudio,
@@ -443,10 +596,77 @@ function switchLanguage(
     video,
     currentAudioRef,
     playButton,
-    pauseButton,
     dubAudioPlayButton,
     originalAudioPlayButton,
     originalAudio,
     dubAudio
   );
+}
+
+function switchKaraokeVideo(
+  originalVideo,
+  karaokeVideo,
+  playButton,
+  originalVideoPlayButton,
+  karaokeVideoPlayButton
+) {
+  // Add event listener for the main play button
+  playButton.addEventListener("click", () => {
+    if (originalVideo.paused && karaokeVideo.played) {
+      // Play both videos when play button is clicked
+      karaokeVideo.pause();
+      originalVideo.play();
+      originalVideoPlayButton.style.display = "block";
+      karaokeVideoPlayButton.style.display = "none";
+      playButton.style.display = "none";
+    } else if (originalVideo.played && karaokeVideo.paused) {
+      // Pause both videos when play button is clicked again
+      originalVideo.pause();
+      karaokeVideo.play();
+      originalVideoPlayButton.style.display = "none";
+      karaokeVideoPlayButton.style.display = "block";
+      playButton.style.display = "none";
+    } else if (originalVideo.paused && karaokeVideo.paused) {
+      // Pause both videos when play button is clicked again
+      originalVideo.play();
+      karaokeVideo.pause();
+      originalVideoPlayButton.style.display = "block";
+      karaokeVideoPlayButton.style.display = "none";
+      playButton.style.display = "none";
+    }
+  });
+
+  // Add event listener for the original video play button
+  originalVideoPlayButton.addEventListener("click", () => {
+    if (originalVideo.paused) {
+      originalVideo.play();
+      karaokeVideo.pause();
+      originalVideoPlayButton.style.display = "block";
+      karaokeVideoPlayButton.style.display = "none";
+      playButton.style.display = "none";
+    } else {
+      originalVideo.pause();
+      karaokeVideo.play();
+      originalVideoPlayButton.style.display = "none";
+      karaokeVideoPlayButton.style.display = "block";
+      playButton.style.display = "none";
+    }
+  });
+
+  // Add event listener for the karaoke video play button
+  karaokeVideoPlayButton.addEventListener("click", () => {
+    if (karaokeVideo.paused) {
+      originalVideo.pause();
+      karaokeVideo.play();
+      originalVideoPlayButton.style.display = "none";
+      karaokeVideoPlayButton.style.display = "block";
+      playButton.style.display = "none";
+    } else {
+      karaokeVideo.pause();
+      originalVideo.play();
+      originalVideoPlayButton.style.display = "block";
+      karaokeVideoPlayButton.style.display = "none";
+      playButton.style.display = "none";
+    }
+  });
 }
