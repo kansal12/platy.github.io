@@ -128,7 +128,7 @@ const videos = [
   {
     id: "video1",
     videoSrc: "assets/videos/video1.mp4", // Update with your actual video path
-    thumbnail: "assets/img/path.jpg",
+    thumbnail: "assets/img/video1Thumbnail.png",
     audioTracks: {
       original: "assets/audios/vocals1.mp3", // Update with your actual audio path
       dub: "assets/audios/dubbed_track1.wav", // Update with your actual audio path
@@ -141,7 +141,7 @@ const videos = [
   {
     id: "video2",
     videoSrc: "assets/videos/video2.mp4", // Update with your actual video path
-    thumbnail: "assets/img/Flag_of_Russia.png",
+    thumbnail: "assets/img/video2Thumbnail.png",
     audioTracks: {
       original: "assets/audios/vocals2.mp3", // Update with your actual audio path
       dub: "assets/audios/dubbed_track2.wav", // Update with your actual audio path
@@ -206,18 +206,21 @@ document.addEventListener("DOMContentLoaded", () => {
     videoContainer.innerHTML = `
     <div class="mySlides fade">
           <!-- Video Element -->
+          <div class="demo-video-container">
           <video id="video-${videoData.id}"  class="demo-video " muted playsinline preload="metadata" poster="${videoData.thumbnail} ">
             <source src="${videoData.videoSrc}" type="video/mp4" >
             Your browser does not support the video tag.'
           </video>
+          <div class="video-controls" >
+            <input type="range" class="seek-bar" id="dub-seek-bar-${videoData.id}" value="0" min="0" max="100" step="0.1">
+          </div>
+          </div>
           <div id="dub-play-sign-${videoData.id}" class="dub-play-sign">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="max-width: 24px; max-height: 24px;" width="3vw" height="3vw">
               <path d="M9 6c0 -.852 .986 -1.297 1.623 -.783l.084 .076l6 6a1 1 0 0 1 .083 1.32l-.083 .094l-6 6l-.094 .083l-.077 .054l-.096 .054l-.036 .017l-.067 .027l-.108 .032l-.053 .01l-.06 .01l-.057 .004l-.059 .002l-.059 -.002l-.058 -.005l-.06 -.009l-.052 -.01l-.108 -.032l-.067 -.027l-.132 -.07l-.09 -.065l-.081 -.073l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057l-.002 -12.059z"></path>
             </svg>
           </div>
-          <div class="video-controls" >
-            <input type="range" class="seek-bar" id="dub-seek-bar-${videoData.id}" value="0" min="0" max="100" step="0.1">
-          </div>
+          
           
 
           <!-- Audio Tracks -->
