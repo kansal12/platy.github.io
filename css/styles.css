@@ -338,7 +338,10 @@ nav ul li a {
   height: 25vw;
 }
 .demo-video {
-  width: 100%;
+  display: flex;
+  object-fit: cover;
+  width: 82%;
+  margin: auto;
   height: 92%;
   border-radius: 12px;
 }
@@ -427,9 +430,11 @@ nav ul li a {
 }
 
 .video-controls {
+  margin: auto;
+  /* this width should be same with width of video class name is demo-video */
+  width: 82%;
   margin-top: -10px;
   text-align: center;
-  padding: 0 26px;
 }
 .seek-bar {
   -webkit-tap-highlight-color: transparent;
@@ -521,8 +526,5 @@ nav ul li a {
   }
   .demo-video-container {
     height: 41vw;
-  }
-  .video-controls {
-    padding: 0 10%;
   }
 }
